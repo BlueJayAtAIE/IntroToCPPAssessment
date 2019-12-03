@@ -10,6 +10,8 @@
 ********************************************************************************************/
 
 #include "raylib.h"
+#include "Sprite.h"
+#include "ButtonVariations.h"
 
 int main()
 {
@@ -18,29 +20,96 @@ int main()
 	int screenWidth = 800;
 	int screenHeight = 450;
 
-	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+	InitWindow(screenWidth, screenHeight, "Tic-Tac-Toe!");
 
 	SetTargetFPS(60);
+
+	//textureSetup();
+
+	gridSize = 0;
+	playerWin = 0;
+	gameOn = true;
+	playerDone = false;
+	
+	GridSizeSelect testD("80x80Blank.png", Vector2{ 250, 200 }, 1, GRAY, 3);
+	GridSizeSelect testE("80x80Blank.png", Vector2{ 350, 200 }, 1, GRAY, 4);
+	GridSizeSelect testF("80x80Blank.png", Vector2{ 450, 200 }, 1, GRAY, 5);
+
 	//--------------------------------------------------------------------------------------
 
 	// Main game loop
 	while (!WindowShouldClose())    // Detect window close button or ESC key
 	{
-		// Update
+		// START GAME
 		//----------------------------------------------------------------------------------
-		// TODO: Update your variables here
+		while (gridSize < 3)
+		{
+			// Display Grid Choices.
+			BeginDrawing();
+
+			ClearBackground(RAYWHITE);
+
+			testD.Draw();
+			DrawText("3", 280, 220, 48, BLACK);
+			testE.Draw();
+			DrawText("4", 380, 220, 48, BLACK);
+			testF.Draw();
+			DrawText("5", 480, 220, 48, BLACK);
+
+			// Let players edit profile.
+			// TODO
+
+			EndDrawing();
+
+			//std::cout << "gridSize is ACTUALLY " << gridSize << std::endl;
+		}
+		int* gameBoard = newGrid(gridSize);
+
+		// Run through player turns.
 		//----------------------------------------------------------------------------------
+		while (gameOn)
+		{
+			// Wait for the player to make a valid move.
+			while (!playerDone)
+			{
+				// Update
+				//----------------------------------------------------------------------------------
 
-		// Draw
+				//----------------------------------------------------------------------------------
+
+				// Draw
+				//----------------------------------------------------------------------------------
+				BeginDrawing();
+
+				ClearBackground(RAYWHITE);
+
+				// Draw grid and cells.
+				// TODO
+
+				EndDrawing();
+				//----------------------------------------------------------------------------------
+			}
+
+			// Check
+			//----------------------------------------------------------------------------------
+			// Itterate through grid, checking for win
+			// (refer to notepad for hypothesis on this).
+
+			// If a win is detected, change the playerWin accordingly and set gameOn to false;
+			// TODO
+			
+			//----------------------------------------------------------------------------------
+			playerDone = false;
+		}
+		// END GAME
 		//----------------------------------------------------------------------------------
-		BeginDrawing();
+		// Display who won. Add to win/lose ratio accordingly.
 
-		ClearBackground(RAYWHITE);
+		gridSize = 0;
+		delete[] gameBoard;
 
-		DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-
-		EndDrawing();
-		//----------------------------------------------------------------------------------
+		// Give the option to continue or quit
+		// TODO
 	}
 
 	// De-Initialization

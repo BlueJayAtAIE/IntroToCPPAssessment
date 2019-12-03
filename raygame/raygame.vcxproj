@@ -131,7 +131,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ButtonVariations.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="80x80Blank.png" />
+    <Image Include="Diamond.png" />
+    <Image Include="O.png" />
+    <Image Include="Square.png" />
+    <Image Include="Star.png" />
+    <Image Include="Triangle.png" />
+    <Image Include="X.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonVariations.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
