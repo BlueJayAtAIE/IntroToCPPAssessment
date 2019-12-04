@@ -24,9 +24,7 @@ Sprite::Sprite(const char filename[], Vector2 pos, float scale, Color color)
 }
 
 Sprite::~Sprite()
-{
-	UnloadTexture(texture);
-}
+{ }
 
 void Sprite::Draw()
 {

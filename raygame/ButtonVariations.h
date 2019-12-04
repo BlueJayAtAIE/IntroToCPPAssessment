@@ -13,6 +13,7 @@ public:
 	void Update() override;
 
 	Vector2 cellID;
+	int claimedBy;
 };
 
 class GridSizeSelect : 

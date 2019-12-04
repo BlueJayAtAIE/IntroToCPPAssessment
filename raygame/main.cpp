@@ -69,20 +69,45 @@ int main()
 			// TODO
 
 			EndDrawing();
+
+			// TEMP ========================
+			game.gridSize = 3;
+			// TEMP ========================
+
 			//----------------------------------------------------------------------------------
 		}
 		int ** gameBoard = newGrid(game.gridSize);
+
+		TTT * cells = new TTT[game.gridSize * game.gridSize];
+		for (size_t i = 0, j = 0; i < game.gridSize * game.gridSize; i++)
+		{
+			float x = i % 3;
+			float y = j;
+			cells[i] = TTT("80x80Blank.png", Vector2{ 100 + (x * 100), 50 + (y * 100) }, 1, GRAY, Vector2{ x, y });
+			if (i == 2 || i == 5)
+			{
+				j++;
+			}
+		}
 
 		// Run through player turns.
 		//----------------------------------------------------------------------------------
 		while (game.gameOn && !WindowShouldClose())
 		{
 			// Wait for the player to make a valid move.
-			while (!game.playerDone)
+			while (!game.playerDone && !WindowShouldClose())
 			{
 				// Update
 				//----------------------------------------------------------------------------------
+				for (size_t i = 0; i < game.gridSize * game.gridSize; i++)
+				{
+					cells[i].Update();
 
+					//TEMP
+					int tempX = cells[i].cellID.x;
+					int tempY = cells[i].cellID.y;
+					if (cells[i].claimedBy != gameBoard[tempX][tempY]) gameBoard[tempX][tempY] == cells[i].claimedBy;
+				}
 				//----------------------------------------------------------------------------------
 
 				// Draw
@@ -92,12 +117,23 @@ int main()
 				ClearBackground(RAYWHITE);
 
 				// Draw grid and cells.
+				for (size_t i = 0; i < game.gridSize * game.gridSize; i++)
+				{
+					cells[i].Draw();
+				}
 				// TODO
 
 				EndDrawing();
 				//----------------------------------------------------------------------------------
 			}
+			game.playerDone = false;
 
+			for (size_t i = 0; i < game.gridSize * game.gridSize; i++)
+			{
+				int tempX = cells[i].cellID.x;
+				int tempY = cells[i].cellID.y;
+				if (cells[i].claimedBy != gameBoard[tempX][tempY]) gameBoard[tempX][tempY] == cells[i].claimedBy;
+			}
 			// Check
 			//----------------------------------------------------------------------------------
 			// Itterate through grid, checking for win
@@ -113,6 +149,7 @@ int main()
 		//----------------------------------------------------------------------------------
 		// Display who won. Add to win/lose ratio accordingly.
 
+		delete[] cells;
 		for (size_t i = 0; i < game.gridSize; i++)
 		{
 			delete[] gameBoard[i];

@@ -7,12 +7,11 @@ TTT::TTT(const char filename[], Vector2 pos, float scale, Color color, Vector2 I
 { 
 	cellID.x = ID.x;
 	cellID.y = ID.y;
+	claimedBy = 0;
 }
 
 TTT::~TTT()
-{
-	UnloadTexture(texture);
-}
+{ }
 
 void TTT::Draw()
 {
@@ -23,7 +22,10 @@ void TTT::Update()
 {
 	if (CheckForClick() && clickable)
 	{
+		// change playerDone to true
 		clickable = false;
+		// TODO, claimed will change to the number of the player whose turn it is.
+		claimedBy = 1;
 		// TODO, the symbol will change to the symbol prefered by the player whose turn it is.
 		Image temp = LoadImage("X.png");
 		texture = LoadTextureFromImage(temp);
@@ -37,6 +39,10 @@ void TTT::Update()
 	{
 		// TODO placeholder maybe?
 		spriteColor = YELLOW;
+	}
+	else
+	{
+		spriteColor = GRAY;
 	}
 }
 

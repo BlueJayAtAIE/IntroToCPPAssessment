@@ -13,9 +13,7 @@ Button::Button(const char filename[], Vector2 pos, float scale, Color color) : S
 }
 
 Button::~Button()
-{
-	UnloadTexture(texture);
-}
+{ }
 
 void Button::Draw()
 {
