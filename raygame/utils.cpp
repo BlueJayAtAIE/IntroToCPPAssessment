@@ -1,5 +1,10 @@
 #include "utils.h"
 
+int gameVariableHolder::gridSize;
+int gameVariableHolder::playerWin;
+bool gameVariableHolder::gameOn;
+bool gameVariableHolder::playerDone;
+
 // TEXTURE BANK ------------------------
 // TODO Currently doesn't work. It'd be nice if this was done before turn-in but 
 // you might have the use the horribly ineffiecnt way just to save some time.
@@ -49,13 +54,19 @@ Texture2D getTexture(std::string filename)
 }
 // -------------------------------------
 
-int * newGrid(size_t size)
+// TODO edit this to make a 2D array- whops
+int ** newGrid(size_t size)
 {
-	int* arr = new int[size];
+	int** arr = new int*[size];
 
 	for (size_t i = 0; i < size; i++)
 	{
-		arr[i] = 0;
+		arr[i] = new int[size];
+
+		for (size_t i = 0; i < size; i++)
+		{
+			// put zeros in each cell here.
+		}
 	}
 
 	return arr;

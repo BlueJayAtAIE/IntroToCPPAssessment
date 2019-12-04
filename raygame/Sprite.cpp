@@ -32,3 +32,8 @@ void Sprite::Draw()
 {
 	DrawTextureEx(texture, Vector2{ x, y }, 0, spriteScale, spriteColor);
 }
+
+void Sprite::Update()
+{
+
+}

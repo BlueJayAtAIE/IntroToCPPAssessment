@@ -10,13 +10,17 @@ static Texture2D star;
 static Texture2D triangle;
 static Texture2D x;
 
-static int gridSize;
-static int playerWin;
-static bool gameOn;
-static bool playerDone;
+class gameVariableHolder
+{
+public:
+	static int gridSize;
+	static int playerWin;
+	static bool gameOn;
+	static bool playerDone;
+};
 
 void textureSetup();
 
 Texture2D getTexture(std::string filename);
 
-int* newGrid(size_t size);
+int ** newGrid(size_t size);

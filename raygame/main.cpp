@@ -10,7 +10,6 @@
 ********************************************************************************************/
 
 #include "raylib.h"
-#include "Sprite.h"
 #include "ButtonVariations.h"
 
 int main()
@@ -26,11 +25,12 @@ int main()
 
 	//textureSetup();
 
-	gridSize = 0;
-	playerWin = 0;
-	gameOn = true;
-	playerDone = false;
-	
+	gameVariableHolder game;// { 0, 0, true, false };
+	gameVariableHolder::gridSize = 0;
+	gameVariableHolder::playerWin = 0;
+	gameVariableHolder::gameOn = true;
+	gameVariableHolder::playerDone = false;
+
 	GridSizeSelect testD("80x80Blank.png", Vector2{ 250, 200 }, 1, GRAY, 3);
 	GridSizeSelect testE("80x80Blank.png", Vector2{ 350, 200 }, 1, GRAY, 4);
 	GridSizeSelect testF("80x80Blank.png", Vector2{ 450, 200 }, 1, GRAY, 5);
@@ -42,8 +42,17 @@ int main()
 	{
 		// START GAME
 		//----------------------------------------------------------------------------------
-		while (gridSize < 3)
+		while (game.gridSize < 3 && !WindowShouldClose())
 		{
+			// Update
+			//----------------------------------------------------------------------------------
+			testD.Update();
+			testE.Update();
+			testF.Update();
+			//----------------------------------------------------------------------------------
+
+			// Draw
+			//----------------------------------------------------------------------------------
 			// Display Grid Choices.
 			BeginDrawing();
 
@@ -60,17 +69,16 @@ int main()
 			// TODO
 
 			EndDrawing();
-
-			//std::cout << "gridSize is ACTUALLY " << gridSize << std::endl;
+			//----------------------------------------------------------------------------------
 		}
-		int* gameBoard = newGrid(gridSize);
+		int ** gameBoard = newGrid(game.gridSize);
 
 		// Run through player turns.
 		//----------------------------------------------------------------------------------
-		while (gameOn)
+		while (game.gameOn && !WindowShouldClose())
 		{
 			// Wait for the player to make a valid move.
-			while (!playerDone)
+			while (!game.playerDone)
 			{
 				// Update
 				//----------------------------------------------------------------------------------
@@ -99,14 +107,18 @@ int main()
 			// TODO
 			
 			//----------------------------------------------------------------------------------
-			playerDone = false;
+			game.playerDone = false;
 		}
 		// END GAME
 		//----------------------------------------------------------------------------------
 		// Display who won. Add to win/lose ratio accordingly.
 
-		gridSize = 0;
+		for (size_t i = 0; i < game.gridSize; i++)
+		{
+			delete[] gameBoard[i];
+		}
 		delete[] gameBoard;
+		game.gridSize = 0;
 
 		// Give the option to continue or quit
 		// TODO

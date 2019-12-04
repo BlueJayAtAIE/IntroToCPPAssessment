@@ -16,6 +16,11 @@ TTT::~TTT()
 
 void TTT::Draw()
 {
+	DrawTextureEx(texture, Vector2{ x, y }, 0, spriteScale, spriteColor);
+}
+
+void TTT::Update()
+{
 	if (CheckForClick() && clickable)
 	{
 		clickable = false;
@@ -26,7 +31,13 @@ void TTT::Draw()
 		// TODO, the color will change to the color prefered by the player whose turn it is.
 		spriteColor = GREEN;
 	}
-	DrawTextureEx(texture, Vector2{ x, y }, 0, spriteScale, spriteColor);
+
+	// On being hovered over and unclicked before, the color will change.
+	if (CheckForHover() && clickable)
+	{
+		// TODO placeholder maybe?
+		spriteColor = YELLOW;
+	}
 }
 
 GridSizeSelect::GridSizeSelect()
@@ -46,21 +57,41 @@ GridSizeSelect::~GridSizeSelect()
 
 void GridSizeSelect::Draw()
 {
-	if (gridSize > 0)
-	{
-		clickable = false;
-	}
+	DrawTextureEx(texture, Vector2{ x, y }, 0, spriteScale, spriteColor);
+}
+
+void GridSizeSelect::Update()
+{
+	// Once one of the buttons has changed the grid size, this will disable all the others.
+	//if (game.gridSize > 0)
+	//{
+	//	clickable = false;
+	//}
+
+	// On being clicked, set the grid size accordingly.
 	if (CheckForClick() && clickable)
 	{
-		setGridSize(gridSize);
+		//game.gridSize = -1;
+		//std::cout << "gggggggggggg" << game.gridSize << std::endl;
+		std::cout << "ggg" << std::endl;
+		//setGridSize(game.gridSize);
 	}
-	DrawTextureEx(texture, Vector2{ x, y }, 0, spriteScale, spriteColor);
+
+	// On being hovered over and unclicked before, the color will change.
+	if (CheckForHover() && clickable)
+	{
+		spriteColor = LIGHTGRAY;
+	}
+	else
+	{
+		spriteColor = GRAY;
+	}
 }
 
 void GridSizeSelect::setGridSize(int &final)
 {
 	std::cout << "gridSize should now be " << grid << std::endl;
 	final = grid;
-	std::cout << "gridSize is ACTUALLY " << gridSize << std::endl;
+	//std::cout << "gridSize is ACTUALLY " << game.gridSize << std::endl;
 }
 

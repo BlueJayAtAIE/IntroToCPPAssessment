@@ -1,7 +1,11 @@
 #pragma once
 #include "raylib.h"
-#include "utils.h"
+#include "utils.h" 
 #include <iostream>
+//extern int gridSize;
+//extern int playerWin;
+//extern bool gameOn;
+//extern bool playerDone;
 
 class Sprite : public Vector2
 {
@@ -11,6 +15,7 @@ public:
 	~Sprite();
 
 	virtual void Draw();
+	virtual void Update();
 
 protected:
 	Texture2D texture;

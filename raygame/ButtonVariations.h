@@ -10,6 +10,8 @@ public:
 	~TTT();
 
 	void Draw() override;
+	void Update() override;
+
 	Vector2 cellID;
 };
 
@@ -22,6 +24,8 @@ public:
 	~GridSizeSelect();
 
 	void Draw() override;
+	void Update() override;
+
 	void setGridSize(int &size);
 
 private:

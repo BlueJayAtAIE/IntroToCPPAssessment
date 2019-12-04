@@ -10,8 +10,10 @@ public:
 	~Button();
 
 	virtual void Draw() override;
+	virtual void Update() override;
 
 	bool CheckForClick();
+	bool CheckForHover();
 
 protected:
 	Rectangle hitbox;
