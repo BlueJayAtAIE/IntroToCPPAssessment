@@ -16,6 +16,9 @@
     <Filter Include="Sprites">
       <UniqueIdentifier>{63ffcfdf-1b96-440b-8568-a10c19147b0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player Files">
+      <UniqueIdentifier>{e1c7c6d6-00ac-4b56-9c9b-451f41caf2dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -76,5 +79,13 @@
     <ClInclude Include="ButtonVariations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="player1.txt">
+      <Filter>Player Files</Filter>
+    </Text>
+    <Text Include="player2.txt">
+      <Filter>Player Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

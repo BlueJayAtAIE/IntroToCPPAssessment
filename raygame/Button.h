@@ -6,7 +6,7 @@ class Button :
 {
 public:
 	Button();
-	Button(const char filename[], Vector2 pos, float scale, Color color);
+	Button(Texture2D tex, Vector2 pos, float scale, Color color);
 	~Button();
 
 	virtual void Draw() override;

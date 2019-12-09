@@ -11,6 +11,7 @@
 
 #include "raylib.h"
 #include "ButtonVariations.h"
+#include "Player.h"
 
 int main()
 {
@@ -23,17 +24,21 @@ int main()
 
 	SetTargetFPS(60);
 
-	//textureSetup();
+	textureLibrary texLib;
 
-	gameVariableHolder game;// { 0, 0, true, false };
+	Player player1("player1.txt", texLib.x, RED, 1);
+	Player player2("player2.txt", texLib.o, BLUE, 2);
+
+	gameVariableHolder game; // { 0, 0, true, false };
 	gameVariableHolder::gridSize = 0;
 	gameVariableHolder::playerWin = 0;
 	gameVariableHolder::gameOn = true;
 	gameVariableHolder::playerDone = false;
+	gameVariableHolder::playerOnesTurn = true;
 
-	GridSizeSelect testD("80x80Blank.png", Vector2{ 250, 200 }, 1, GRAY, 3);
-	GridSizeSelect testE("80x80Blank.png", Vector2{ 350, 200 }, 1, GRAY, 4);
-	GridSizeSelect testF("80x80Blank.png", Vector2{ 450, 200 }, 1, GRAY, 5);
+	GridSizeSelect testD(texLib.blank, Vector2{ 250, 200 }, 1, GRAY, 3);
+	GridSizeSelect testE(texLib.blank, Vector2{ 350, 200 }, 1, GRAY, 4);
+	GridSizeSelect testF(texLib.blank, Vector2{ 450, 200 }, 1, GRAY, 5);
 
 	//--------------------------------------------------------------------------------------
 
@@ -46,9 +51,9 @@ int main()
 		{
 			// Update
 			//----------------------------------------------------------------------------------
-			testD.Update();
-			testE.Update();
-			testF.Update();
+			testD.Update(game.gridSize);
+			testE.Update(game.gridSize);
+			testF.Update(game.gridSize);
 			//----------------------------------------------------------------------------------
 
 			// Draw
@@ -69,21 +74,19 @@ int main()
 			// TODO
 
 			EndDrawing();
-
-			// TEMP ========================
-			game.gridSize = 3;
-			// TEMP ========================
-
 			//----------------------------------------------------------------------------------
 		}
+
+		// Set up game board.
 		int ** gameBoard = newGrid(game.gridSize);
 
+		// TODO edit this to work with grids other than 3x3.
 		TTT * cells = new TTT[game.gridSize * game.gridSize];
 		for (size_t i = 0, j = 0; i < game.gridSize * game.gridSize; i++)
 		{
 			float x = i % 3;
 			float y = j;
-			cells[i] = TTT("80x80Blank.png", Vector2{ 100 + (x * 100), 50 + (y * 100) }, 1, GRAY, Vector2{ x, y });
+			cells[i] = TTT(texLib.blank, Vector2{ 100 + (x * 100), 50 + (y * 100) }, 1, GRAY, Vector2{ x, y });
 			if (i == 2 || i == 5)
 			{
 				j++;
@@ -101,12 +104,14 @@ int main()
 				//----------------------------------------------------------------------------------
 				for (size_t i = 0; i < game.gridSize * game.gridSize; i++)
 				{
-					cells[i].Update();
-
-					//TEMP
-					int tempX = cells[i].cellID.x;
-					int tempY = cells[i].cellID.y;
-					if (cells[i].claimedBy != gameBoard[tempX][tempY]) gameBoard[tempX][tempY] == cells[i].claimedBy;
+					if (game.playerOnesTurn)
+					{
+						cells[i].Update(player1, game.playerDone);
+					}
+					else
+					{
+						cells[i].Update(player2, game.playerDone);
+					}
 				}
 				//----------------------------------------------------------------------------------
 
@@ -121,30 +126,51 @@ int main()
 				{
 					cells[i].Draw();
 				}
-				// TODO
 
 				EndDrawing();
 				//----------------------------------------------------------------------------------
 			}
+
+			// Toggle playerDone to catch in the above loop again after the check. Then toggle whos turn it is.
 			game.playerDone = false;
+			game.playerOnesTurn = !game.playerOnesTurn;
+
+			// TEMP ============
+			if (game.playerOnesTurn)
+			{
+				std::cout << "bup! it's player one's turn!" << std::endl;
+			}
+			else
+			{
+				std::cout << "bup! it's player two's turn!" << std::endl;
+			}
+			// =================
 
 			for (size_t i = 0; i < game.gridSize * game.gridSize; i++)
 			{
-				int tempX = cells[i].cellID.x;
-				int tempY = cells[i].cellID.y;
-				if (cells[i].claimedBy != gameBoard[tempX][tempY]) gameBoard[tempX][tempY] == cells[i].claimedBy;
+				if (cells[i].claimedBy != gameBoard[(int)cells[i].cellID.x][(int)cells[i].cellID.y])
+				{
+					// KEEP COMMENTED
+					//std::cout << "cells[" << i << "]: " << cells[i].claimedBy << " == " << gameBoard[(int)cells[i].cellID.x][(int)cells[i].cellID.y] << " ???"
+					//	<< " ( x =  " << (int)cells[i].cellID.x << ", y = " << (int)cells[i].cellID.y << ")" << std::endl;
+
+					gameBoard[(int)cells[i].cellID.x][(int)cells[i].cellID.y] = cells[i].claimedBy;
+				}
 			}
+			// KEEP COMMENTED
+			//std::cout << "--------------------------------------" << std::endl;
+
 			// Check
 			//----------------------------------------------------------------------------------
 			// Itterate through grid, checking for win
-			// (refer to notepad for hypothesis on this).
+			// (Refer to notepad for hypothesis on this).
 
 			// If a win is detected, change the playerWin accordingly and set gameOn to false;
 			// TODO
 			
 			//----------------------------------------------------------------------------------
-			game.playerDone = false;
 		}
+
 		// END GAME
 		//----------------------------------------------------------------------------------
 		// Display who won. Add to win/lose ratio accordingly.

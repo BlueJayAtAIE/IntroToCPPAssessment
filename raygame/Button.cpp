@@ -4,7 +4,7 @@
 Button::Button() : Sprite() { }
 
 // Paramiterized constructor.
-Button::Button(const char filename[], Vector2 pos, float scale, Color color) : Sprite(filename, pos, scale, color)
+Button::Button(Texture2D tex, Vector2 pos, float scale, Color color) : Sprite(tex, pos, scale, color)
 { 
 	hitbox.x = x;
 	hitbox.y = y;

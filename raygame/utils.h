@@ -1,30 +1,38 @@
 #pragma once
-#include "raylib.h"
 #include <iostream>
+#include "raylib.h"
 
-//class textureLibrary
-//{
-//public:
-//	static Texture2D blank;
-//	static Texture2D diamond;
-//	static Texture2D o;
-//	static Texture2D square;
-//	static Texture2D star;
-//	static Texture2D triangle;
-//	static Texture2D x;
-//
-//	void textureSetup();
-//
-//	Texture2D getTexture(std::string filename);
-//};
-
-class gameVariableHolder
+class textureLibrary
 {
 public:
+	Texture2D blank;
+	Texture2D diamond;
+	Texture2D o;
+	Texture2D square;
+	Texture2D star;
+	Texture2D triangle;
+	Texture2D x;
+
+	textureLibrary();
+};
+
+
+struct gameVariableHolder
+{
+	// The dimentions of both sides of the square board.
 	static int gridSize;
+
+	// Records the player who won, to print it to the screen and add to the w/l ratio.
 	static int playerWin;
+
+	// Allows the round to keep looping between player turns.
 	static bool gameOn;
+
+	// Toggles upon the claiming of the cell, to push on to the next turn.
 	static bool playerDone;
+
+	// Keeps track of who's turn it currently is. 0 = Player one, 1 = Player 2.
+	static bool playerOnesTurn;
 };
 
 int ** newGrid(size_t size);

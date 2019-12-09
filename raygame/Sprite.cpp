@@ -12,11 +12,9 @@ Sprite::Sprite()
 	spriteColor = MAGENTA;
 }
 
-Sprite::Sprite(const char filename[], Vector2 pos, float scale, Color color)
+Sprite::Sprite(Texture2D tex, Vector2 pos, float scale, Color color)
 {
-	Image temp = LoadImage(filename);
-	texture = LoadTextureFromImage(temp);
-	UnloadImage(temp);
+	texture = tex;
 	x = pos.x;
 	y = pos.y;
 	spriteScale = scale;

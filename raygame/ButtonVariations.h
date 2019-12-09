@@ -1,16 +1,17 @@
 #pragma once
 #include "Button.h"
+#include "Player.h"
 
 class TTT :
 	public Button
 {
 public:
 	TTT();
-	TTT(const char filename[], Vector2 pos, float scale, Color color, Vector2 ID);
+	TTT(Texture2D tex, Vector2 pos, float scale, Color color, Vector2 ID);
 	~TTT();
 
 	void Draw() override;
-	void Update() override;
+	void Update(Player player, bool &turnEnd);
 
 	Vector2 cellID;
 	int claimedBy;
@@ -21,11 +22,11 @@ class GridSizeSelect :
 {
 public:
 	GridSizeSelect();
-	GridSizeSelect(const char filename[], Vector2 pos, float scale, Color color, int size);
+	GridSizeSelect(Texture2D tex, Vector2 pos, float scale, Color color, int size);
 	~GridSizeSelect();
 
 	void Draw() override;
-	void Update() override;
+	void Update(int &sizeToChange);
 
 	void setGridSize(int &size);
 
