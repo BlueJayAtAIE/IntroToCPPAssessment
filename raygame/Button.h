@@ -15,6 +15,8 @@ public:
 	bool CheckForClick();
 	bool CheckForHover();
 
+	void disable();
+
 protected:
 	Rectangle hitbox;
 	bool clickable = true;

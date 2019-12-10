@@ -27,20 +27,23 @@ void Button::Update()
 
 bool Button::CheckForClick()
 {
-	bool temp = false;
 	if (CheckCollisionPointRec(GetMousePosition(), hitbox) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 	{
-		temp = true;
+		return true;
 	}
-	return temp;
+	return false;
 }
 
 bool Button::CheckForHover()
 {
-	bool temp = false;
 	if (CheckCollisionPointRec(GetMousePosition(), hitbox))
 	{
-		temp = true;
+		return true;
 	}
-	return temp;
+	return false;
+}
+
+void Button::disable()
+{
+	clickable = false;
 }

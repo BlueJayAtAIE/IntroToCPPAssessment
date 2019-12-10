@@ -62,6 +62,27 @@
     <Image Include="80x80Blank.png">
       <Filter>Sprites</Filter>
     </Image>
+    <Image Include="FadeScreen.png">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="200x80Blank.png">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="MainMenu.png">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="LevelBG3x3.png">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="LevelBG4x4.png">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="LevelBG5x5.png">
+      <Filter>Sprites</Filter>
+    </Image>
+    <Image Include="ScrollingBG.png">
+      <Filter>Sprites</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sprite.h">

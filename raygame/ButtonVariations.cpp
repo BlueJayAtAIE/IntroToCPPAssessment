@@ -38,7 +38,7 @@ void TTT::Update(Player player, bool &turnEnd)
 	}
 	else if (clickable)
 	{
-		spriteColor = LIGHTGRAY;
+		spriteColor = WHITE;
 	}
 }
 
@@ -81,7 +81,7 @@ void GridSizeSelect::Update(int &sizeToChange)
 	}
 	else
 	{
-		spriteColor = LIGHTGRAY;
+		spriteColor = WHITE;
 	}
 }
 
@@ -132,6 +132,7 @@ void PlayerColorSelect::Update(Player &playerToChange)
 }
 
 // -------------------------------------------------------------------------------------------------------------------------
+// Player configuration button: shape.
 PlayerShapeSelect::PlayerShapeSelect() { }
 
 PlayerShapeSelect::PlayerShapeSelect(Texture2D tex, Vector2 pos, float scale, Color color, std::string baseName) : Button(tex, pos, scale, color)
@@ -170,5 +171,35 @@ void PlayerShapeSelect::Update(Player & playerToChange)
 	else if (clickable)
 	{
 		spriteColor = GRAY;
+	}
+}
+
+// -------------------------------------------------------------------------------------------------------------------------
+// Continue/Quit button.
+Toggle::Toggle(Texture2D tex, Vector2 pos, float scale, Color color) : Button(tex, pos, scale, color) { }
+
+Toggle::~Toggle() { }
+
+void Toggle::Draw()
+{
+	DrawTextureEx(texture, Vector2{ x, y }, 0, spriteScale, spriteColor);
+}
+
+void Toggle::Update(bool &toOverride)
+{
+	// Upon being clicked, set the given bool to the opposite of what it is now.
+	if (CheckForClick() && clickable)
+	{
+		toOverride = !toOverride;
+	}
+
+	// On being hovered over and unclicked before, the color will change.
+	if (CheckForHover() && clickable)
+	{
+		spriteColor = YELLOW;
+	}
+	else
+	{
+		spriteColor = WHITE;
 	}
 }

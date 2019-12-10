@@ -1,7 +1,7 @@
 #pragma once
-#include "raylib.h"
-#include "utils.h" 
 #include <iostream>
+#include "utils.h" 
+#include "raylib.h"
 
 class Sprite : public Vector2
 {

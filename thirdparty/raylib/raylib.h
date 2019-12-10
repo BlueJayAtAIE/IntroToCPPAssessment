@@ -308,6 +308,7 @@
 #define BEIGE      CLITERAL{ 211, 176, 131, 255 }   // Beige
 #define BROWN      CLITERAL{ 127, 106, 79, 255 }    // Brown
 #define DARKBROWN  CLITERAL{ 76, 63, 47, 255 }      // Dark Brown
+#define JAYBLUE    CLITERAL{ 127, 209, 255, 255 }   // Jay Blue (Special BG Color)
 
 #define WHITE      CLITERAL{ 255, 255, 255, 255 }   // White
 #define BLACK      CLITERAL{ 0, 0, 0, 255 }         // Black

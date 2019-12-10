@@ -139,9 +139,16 @@
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="200x80Blank.png" />
     <Image Include="80x80Blank.png" />
     <Image Include="Diamond.png" />
+    <Image Include="FadeScreen.png" />
+    <Image Include="LevelBG3x3.png" />
+    <Image Include="LevelBG4x4.png" />
+    <Image Include="LevelBG5x5.png" />
+    <Image Include="MainMenu.png" />
     <Image Include="O.png" />
+    <Image Include="ScrollingBG.png" />
     <Image Include="Square.png" />
     <Image Include="Star.png" />
     <Image Include="Triangle.png" />

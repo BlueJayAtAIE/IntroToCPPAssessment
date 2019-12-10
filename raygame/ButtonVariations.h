@@ -44,6 +44,7 @@ public:
 	void Draw() override;
 	void Update(Player &playerToChange);
 
+private:
 	Color baseColor;
 };
 
@@ -58,6 +59,18 @@ public:
 	void Draw() override;
 	void Update(Player &playerToChange);
 
+private:
 	Texture2D baseTex;
 	std::string baseTexName;
+};
+
+class Toggle :
+	public Button
+{
+public:
+	Toggle(Texture2D tex, Vector2 pos, float scale, Color color);
+	~Toggle();
+
+	void Draw() override;
+	void Update(bool &toOverride);
 };

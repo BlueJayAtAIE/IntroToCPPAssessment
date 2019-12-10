@@ -2,9 +2,10 @@
 
 int gameVariableHolder::gridSize;
 int gameVariableHolder::playerWin;
-bool gameVariableHolder::gameOn;
+bool gameVariableHolder::loopTurns;
 bool gameVariableHolder::playerDone;
 bool gameVariableHolder::playerOnesTurn;
+bool gameVariableHolder::gameOn;
 
 // -------------------------------------
 // TEXTURE BANK
@@ -18,6 +19,15 @@ textureLibrary::textureLibrary()
 	star = LoadTexture("Star.png");
 	triangle = LoadTexture("Triangle.png");
 	x = LoadTexture("X.png");
+
+	fadeScreen = LoadTexture("FadeScreen.png");
+	button = LoadTexture("200x80Blank.png");
+
+	mainMenuBG = LoadTexture("MainMenu.png");
+	level3x3BG = LoadTexture("LevelBG3x3.png");
+	level4x4BG = LoadTexture("LevelBG4x4.png");
+	level5x5BG = LoadTexture("LevelBG5x5.png");
+	scrollingBG = LoadTexture("ScrollingBG.png");
 }
 
 // -------------------------------------
@@ -83,4 +93,15 @@ Color pickColor(const size_t i)
 		return GRAY;
 		break;
 	}
+}
+
+void scroll(float & X, float & Y, const float originalX, const float originalY)
+{
+	if (Y > 600)
+	{
+		X = originalX;
+		Y = originalY;
+	}
+	X += 0.5f;
+	Y += 0.5f;
 }

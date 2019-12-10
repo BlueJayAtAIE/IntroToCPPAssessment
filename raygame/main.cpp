@@ -1,8 +1,5 @@
 /*******************************************************************************************
 *
-*   raylib [core] example - basic window
-*
-*   This example has been created using raylib 1.0 (www.raylib.com)
 *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
 *
 *   Copyright (c) 2013-2016 Ramon Santamaria (@raysan5)
@@ -32,17 +29,19 @@ int main()
 	Player player2("player2.txt", texLib.o, "O", BLUE, 2);
 
 	// Set up the game variables.
-	gameVariableHolder game; // { 0, 0, true, false };
-	gameVariableHolder::gridSize = 0;
-	gameVariableHolder::playerWin = 0;
-	gameVariableHolder::gameOn = true;
-	gameVariableHolder::playerDone = false;
-	gameVariableHolder::playerOnesTurn = true;
+	gameVariableHolder game;
+	game.gridSize = 0;
+	game.playerWin = 0;
+	game.loopTurns = true;
+	game.playerDone = false;
+	game.playerOnesTurn = true;
+
+	game.gameOn = true;
 
 	// Set up grid size select buttons.
-	GridSizeSelect gridButton3(texLib.blank, Vector2{ 250, 200 }, 1, GRAY, 3);
-	GridSizeSelect gridButton4(texLib.blank, Vector2{ 350, 200 }, 1, GRAY, 4);
-	GridSizeSelect gridButton5(texLib.blank, Vector2{ 450, 200 }, 1, GRAY, 5);
+	GridSizeSelect gridButton3(texLib.blank, Vector2{ 190, 150 }, 1.5, WHITE, 3);
+	GridSizeSelect gridButton4(texLib.blank, Vector2{ 340, 150 }, 1.5, WHITE, 4);
+	GridSizeSelect gridButton5(texLib.blank, Vector2{ 490, 150 }, 1.5, WHITE, 5);
 
 	// Set up player customization buttons.
 	const int maxColors = 8;
@@ -53,9 +52,9 @@ int main()
 
 	for (size_t i = 0; i < maxColors; i++)
 	{
-		float y = 360;
-		if (i > 3) y = 410;
-		playerOneColors[i] = PlayerColorSelect(texLib.blank, Vector2{ 40 + (50 * (float)(i % 4)), y }, 0.5f, pickColor(i));
+		float y = 340;
+		if (i > 3) y = 390;
+		playerOneColors[i] = PlayerColorSelect(texLib.blank, Vector2{ 20 + (50 * (float)(i % 4)), y }, 0.5f, pickColor(i));
 	}
 
 	// Player two COLOR (right hand size).
@@ -63,37 +62,48 @@ int main()
 
 	for (size_t i = 0; i < maxColors; i++)
 	{
-		float y = 360;
-		if (i > 3) y = 410;
-		playerTwoColors[i] = PlayerColorSelect(texLib.blank, Vector2{ 570 + (50 * (float)(i % 4)), y }, 0.5f, pickColor(i));
+		float y = 340;
+		if (i > 3) y = 390;
+		playerTwoColors[i] = PlayerColorSelect(texLib.blank, Vector2{ 590 + (50 * (float)(i % 4)), y }, 0.5f, pickColor(i));
 	}
 
 	// Player one SHAPE (left hand side).
 	PlayerShapeSelect playerOneShapes[maxShapes];
-	playerOneShapes[0] = PlayerShapeSelect(texLib.diamond,  Vector2{ 40,  160 }, 0.5f, GRAY, "Diamond");
-	playerOneShapes[1] = PlayerShapeSelect(texLib.o, Vector2{ 100, 160 }, 0.5f, GRAY, "O");
-	playerOneShapes[2] = PlayerShapeSelect(texLib.square, Vector2{ 40,  220 }, 0.5f, GRAY, "Square");
-	playerOneShapes[3] = PlayerShapeSelect(texLib.star, Vector2{ 100, 220 }, 0.5f, GRAY, "Star");
-	playerOneShapes[4] = PlayerShapeSelect(texLib.triangle, Vector2{ 40,  280 }, 0.5f, GRAY, "Triangle");
-	playerOneShapes[5] = PlayerShapeSelect(texLib.x, Vector2{ 100, 280 }, 0.5f, GRAY, "X");
+	playerOneShapes[0] = PlayerShapeSelect(texLib.diamond,  Vector2{ 20,  160 }, 0.5f, GRAY, "Diamond");
+	playerOneShapes[1] = PlayerShapeSelect(texLib.o, Vector2{ 80, 160 }, 0.5f, GRAY, "O");
+	playerOneShapes[2] = PlayerShapeSelect(texLib.square, Vector2{ 20,  220 }, 0.5f, GRAY, "Square");
+	playerOneShapes[3] = PlayerShapeSelect(texLib.star, Vector2{ 80, 220 }, 0.5f, GRAY, "Star");
+	playerOneShapes[4] = PlayerShapeSelect(texLib.triangle, Vector2{ 20,  280 }, 0.5f, GRAY, "Triangle");
+	playerOneShapes[5] = PlayerShapeSelect(texLib.x, Vector2{ 80, 280 }, 0.5f, GRAY, "X");
 
 	// Player two SHAPE (right hand side).
 	PlayerShapeSelect playerTwoShapes[maxShapes];
-	playerTwoShapes[0] = PlayerShapeSelect(texLib.diamond, Vector2{ 660, 160 }, 0.5f, GRAY, "Diamond");
-	playerTwoShapes[1] = PlayerShapeSelect(texLib.o, Vector2{ 720, 160 }, 0.5f, GRAY, "O");
-	playerTwoShapes[2] = PlayerShapeSelect(texLib.square, Vector2{ 660, 220 }, 0.5f, GRAY, "Square");
-	playerTwoShapes[3] = PlayerShapeSelect(texLib.star, Vector2{ 720, 220 }, 0.5f, GRAY, "Star");
-	playerTwoShapes[4] = PlayerShapeSelect(texLib.triangle, Vector2{ 660, 280 }, 0.5f, GRAY, "Triangle");
-	playerTwoShapes[5] = PlayerShapeSelect(texLib.x, Vector2{ 720, 280 }, 0.5f, GRAY, "X");
+	playerTwoShapes[0] = PlayerShapeSelect(texLib.diamond, Vector2{ 680, 160 }, 0.5f, GRAY, "Diamond");
+	playerTwoShapes[1] = PlayerShapeSelect(texLib.o, Vector2{ 740, 160 }, 0.5f, GRAY, "O");
+	playerTwoShapes[2] = PlayerShapeSelect(texLib.square, Vector2{ 680, 220 }, 0.5f, GRAY, "Square");
+	playerTwoShapes[3] = PlayerShapeSelect(texLib.star, Vector2{ 740, 220 }, 0.5f, GRAY, "Star");
+	playerTwoShapes[4] = PlayerShapeSelect(texLib.triangle, Vector2{ 680, 280 }, 0.5f, GRAY, "Triangle");
+	playerTwoShapes[5] = PlayerShapeSelect(texLib.x, Vector2{ 740, 280 }, 0.5f, GRAY, "X");
+
+	// Continue n' Quit buttons to be displayed at the end.
+	Toggle continueButton(texLib.button, Vector2{ 120, 280 }, 1.3f, WHITE);
+	Toggle quitButton(texLib.button, Vector2{ 420, 280 }, 1.3f, WHITE);
+
+	// Set up the scrolling background.
+	float scrollOneX = -800;
+	float scrollOneY = 0;
+	float scrollTwoX = -800;
+	float scrollTwoY = -600;
 
 	//--------------------------------------------------------------------------------------
 
 	// Main game loop
-	while (!WindowShouldClose())    // Detect window close button or ESC key
+	while (!WindowShouldClose() && game.gameOn)    // Detect window close button or ESC key
 	{
 		// START GAME
 		//----------------------------------------------------------------------------------
-		game.gameOn = true;
+		// These variables are set here again in the case of the game looping.
+		game.loopTurns = true;
 		game.playerWin = 0;
 		game.playerOnesTurn = true;
 
@@ -130,6 +140,10 @@ int main()
 				player2.playerShapeName = "O";
 			}
 
+			// Update the scrolling BG.
+			scroll(scrollOneX, scrollOneY, -800, -600);
+			scroll(scrollTwoX, scrollTwoY, -800, -600);
+
 			//----------------------------------------------------------------------------------
 
 			// Draw
@@ -137,19 +151,29 @@ int main()
 			// Display Grid Choices.
 			BeginDrawing();
 
-			ClearBackground(RAYWHITE);
+			ClearBackground(JAYBLUE);
+			
+			// Draw the two layers of scrolling BG.
+			DrawTextureEx(texLib.scrollingBG, Vector2{ scrollOneX, scrollOneY }, 0, 1, SKYBLUE);
+			DrawTextureEx(texLib.scrollingBG, Vector2{ scrollTwoX, scrollTwoY }, 0, 1, SKYBLUE);
+
+			// Draw the Main BG.
+			DrawTextureEx(texLib.mainMenuBG, Vector2{ 0, 0 }, 0, 1, WHITE);
 
 			// Let players preview their symbol and color combo.
-			DrawTextureEx(player1.playerShape, Vector2{ 250, 365 }, 0, 1, player1.playerColor);
-			DrawTextureEx(player2.playerShape, Vector2{ 460, 365 }, 0, 1, player2.playerColor);
+			DrawTextureEx(player1.playerShape, Vector2{ 245, 425 }, 0, 0.8f, player1.playerColor);
+			DrawTextureEx(player2.playerShape, Vector2{ 480, 425 }, 0, 0.8f, player2.playerColor);
+			DrawText("Player 1", 20, 450, 46, player1.playerColor);
+			DrawText("Player 2", 580, 450, 46, player2.playerColor);
 
 			// Draw grid buttons with text.
 			gridButton3.Draw();
-			DrawText("3", 280, 220, 48, BLACK);
+			DrawText("3", 236, 186, 60, BLACK);
 			gridButton4.Draw();
-			DrawText("4", 380, 220, 48, BLACK);
+			DrawText("4", 386, 186, 60, BLACK);
 			gridButton5.Draw();
-			DrawText("5", 480, 220, 48, BLACK);
+			DrawText("5", 536, 186, 60, BLACK);
+			DrawText("Select Your Board Size!", 155, 90, 40, BLACK);
 
 			// Draw color buttons.
 			for (size_t i = 0; i < maxColors; i++)
@@ -178,7 +202,7 @@ int main()
 		{
 			float x = i % game.gridSize;
 			float y = j;
-			float scale = 1 - (game.gridSize * 0.05);
+			float scale = 1 - (game.gridSize * 0.05f);
 
 			cells[i] = TTT(texLib.blank, Vector2{ (300 * scale) + (x * (100 * scale)), (110 * (scale * scale)) + (y * (100 * scale)) }, scale, GRAY, Vector2{ x, y });
 
@@ -193,7 +217,7 @@ int main()
 
 		// Run through player turns.
 		//----------------------------------------------------------------------------------
-		while (game.gameOn && !WindowShouldClose())
+		while (game.loopTurns && !WindowShouldClose())
 		{
 			// Wait for the player to make a valid move.
 			while (!game.playerDone && !WindowShouldClose())
@@ -211,13 +235,52 @@ int main()
 						cells[i].Update(player2, game.playerDone);
 					}
 				}
+
+				// Update the scrolling BG.
+				scroll(scrollOneX, scrollOneY, -800, -600);
+				scroll(scrollTwoX, scrollTwoY, -800, -600);
+
 				//----------------------------------------------------------------------------------
 
 				// Draw
 				//----------------------------------------------------------------------------------
 				BeginDrawing();
 
-				ClearBackground(RAYWHITE);
+				ClearBackground(JAYBLUE);
+
+				// Draw the two layers of scrolling BG.
+				DrawTextureEx(texLib.scrollingBG, Vector2{ scrollOneX, scrollOneY }, 0, 1, SKYBLUE);
+				DrawTextureEx(texLib.scrollingBG, Vector2{ scrollTwoX, scrollTwoY }, 0, 1, SKYBLUE);
+
+				// Draw the main BG.
+				if (game.gridSize == 3)
+				{
+					DrawTextureEx(texLib.level3x3BG, Vector2{ 0, 0 }, 0, 1, WHITE);
+				}
+				else if (game.gridSize == 4)
+				{
+					DrawTextureEx(texLib.level4x4BG, Vector2{ 0, 0 }, 0, 1, WHITE);
+				}
+				else
+				{
+					DrawTextureEx(texLib.level5x5BG, Vector2{ 0, 0 }, 0, 1, WHITE);
+				}
+
+				// Let players preview their symbol and color combo. Also displays whose turn it is.
+				if (game.playerOnesTurn)
+				{
+					DrawTextureEx(player1.playerShape, Vector2{ 20, 380 }, 0, 0.8f, player1.playerColor);
+					DrawTextureEx(player2.playerShape, Vector2{ 710, 380 }, 0, 0.8f, BLACK);
+					DrawText("Player 1", 20, 450, 46, player1.playerColor);
+					DrawText("Player 2", 580, 450, 46, BLACK);
+				}
+				else
+				{
+					DrawTextureEx(player1.playerShape, Vector2{ 20, 380 }, 0, 0.8f, BLACK);
+					DrawTextureEx(player2.playerShape, Vector2{ 710, 380 }, 0, 0.8f, player2.playerColor);
+					DrawText("Player 1", 20, 450, 46, BLACK);
+					DrawText("Player 2", 580, 450, 46, player2.playerColor);
+				}
 
 				// Draw grid and cells.
 				for (size_t i = 0; i < game.gridSize * game.gridSize; i++)
@@ -253,6 +316,7 @@ int main()
 			// Itterate through grid, checking for win.
 
 			// This while allows for the other for loops to be skipped if a condition is met that matches before the others.
+			// It's also so that playerToTrack and count stay in the scope of the while only.
 			// If a win is detected, change the playerWin accordingly.
 			while (true)
 			{
@@ -381,11 +445,10 @@ int main()
 
 
 			// Setting gameOn to false ends the round, and brings up the quit/continue screen.
-			// Here should also be where the win and loss are added to each player. TODO
 			if (game.playerWin > 0)
 			{
-				game.gameOn = false;
-				std::cout << "Player " << game.playerWin << " has won!!" << std::endl;
+				game.loopTurns = false;
+				//std::cout << "Player " << game.playerWin << " has won!!" << std::endl;
 			}
 
 			//----------------------------------------------------------------------------------
@@ -393,7 +456,114 @@ int main()
 
 		// END GAME
 		//----------------------------------------------------------------------------------
-		// Display who won. Add to win/lose ratio accordingly. TODO
+
+		bool continueGame = false;
+
+		// Disable all the grid cells, even if blank, so they can't be changed on the reults scren.
+		for (size_t i = 0; i < game.gridSize * game.gridSize; i++)
+		{
+			cells[i].disable();
+ 		}
+
+		while ((!WindowShouldClose() && !continueGame) && game.gameOn)
+		{
+			// Update
+			//----------------------------------------------------------------------------------
+			
+			// Give the option to continue or quit.
+			continueButton.Update(continueGame);
+			quitButton.Update(game.gameOn);
+
+			// Update the scrolling BG.
+			scroll(scrollOneX, scrollOneY, -800, -600);
+			scroll(scrollTwoX, scrollTwoY, -800, -600);
+
+			//----------------------------------------------------------------------------------
+
+			// Draw
+			//----------------------------------------------------------------------------------
+			BeginDrawing();
+
+			ClearBackground(JAYBLUE);
+
+			// Draw the two layers of scrolling BG.
+			DrawTextureEx(texLib.scrollingBG, Vector2{ scrollOneX, scrollOneY }, 0, 1, SKYBLUE);
+			DrawTextureEx(texLib.scrollingBG, Vector2{ scrollTwoX, scrollTwoY }, 0, 1, SKYBLUE);
+
+			// Draw the main BG.
+			if (game.gridSize == 3)
+			{
+				DrawTextureEx(texLib.level3x3BG, Vector2{ 0, 0 }, 0, 1, WHITE);
+			}
+			else if (game.gridSize == 4)
+			{
+				DrawTextureEx(texLib.level4x4BG, Vector2{ 0, 0 }, 0, 1, WHITE);
+			}
+			else
+			{
+				DrawTextureEx(texLib.level5x5BG, Vector2{ 0, 0 }, 0, 1, WHITE);
+			}
+
+			// Draw board from previous game.
+			for (size_t i = 0; i < game.gridSize * game.gridSize; i++)
+			{
+				cells[i].Draw();
+			}
+
+			// The turn preview from the previous session. Changes color depending on who won instead.
+			if (game.playerWin == 1)
+			{
+				DrawTextureEx(player1.playerShape, Vector2{ 20, 380 }, 0, 0.8f, player1.playerColor);
+				DrawTextureEx(player2.playerShape, Vector2{ 710, 380 }, 0, 0.8f, BLACK);
+				DrawText("Player 1", 20, 450, 46, player1.playerColor);
+				DrawText("Player 2", 580, 450, 46, BLACK);
+			}
+			else if (game.playerWin == 2)
+			{
+				DrawTextureEx(player1.playerShape, Vector2{ 20, 380 }, 0, 0.8f, BLACK);
+				DrawTextureEx(player2.playerShape, Vector2{ 710, 380 }, 0, 0.8f, player2.playerColor);
+				DrawText("Player 1", 20, 450, 46, BLACK);
+				DrawText("Player 2", 580, 450, 46, player2.playerColor);
+			}
+			else
+			{
+				DrawTextureEx(player1.playerShape, Vector2{ 20, 380 }, 0, 0.8f, BLACK);
+				DrawTextureEx(player2.playerShape, Vector2{ 710, 380 }, 0, 0.8f, BLACK);
+				DrawText("Player 1", 20, 450, 46, BLACK);
+				DrawText("Player 2", 580, 450, 46, BLACK);
+			}
+
+			// The blur effect over the board.
+			DrawTexture(texLib.fadeScreen, 0, 0, WHITE);
+
+			// Display the Retry/Quit buttons.
+			continueButton.Draw();
+			DrawText("Rematch!", 140, 310, 50, BLACK);
+			quitButton.Draw();
+			DrawText("Quit", 500, 310, 50, BLACK);
+
+
+			// Display who won.
+			if (game.playerWin == 1)
+			{
+				DrawText("Player One Wins!", 113, 88, 71, WHITE);
+				DrawText("Player One Wins!", 115, 90, 70, player1.playerColor);
+			}
+			else if (game.playerWin == 2)
+			{
+				DrawText("Player Two Wins!", 113, 88, 71, WHITE);
+				DrawText("Player Two Wins!", 115, 90, 70, player2.playerColor);
+			}
+			else
+			{
+				DrawText("Tie Game.", 238, 88, 70, WHITE);
+				DrawText("Tie Game.", 240, 90, 70, BLACK);
+			}
+
+
+			EndDrawing();
+			//----------------------------------------------------------------------------------
+		}
 
 		delete[] cells;
 		for (size_t i = 0; i < game.gridSize; i++)
@@ -402,8 +572,6 @@ int main()
 		}
 		delete[] gameBoard;
 		game.gridSize = 0;
-
-		// Give the option to continue or quit. TODO
 	}
 
 	// De-Initialization
