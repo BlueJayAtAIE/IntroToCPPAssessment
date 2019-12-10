@@ -31,7 +31,7 @@ struct gameVariableHolder
 	// The dimentions of both sides of the square board.
 	static int gridSize;
 
-	// Records the player who won, to print it to the screen and add to the w/l ratio.
+	// Records the player who won, to print it to the screen.
 	static int playerWin;
 
 	// Allows the round to keep looping between player turns.
@@ -47,6 +47,7 @@ struct gameVariableHolder
 	static bool gameOn;
 };
 
+// Creates a square 2D dynamic array with dimentions of the given number.
 int ** newGrid(size_t size);
 
 bool operator==(const Color lhs, const Color rhs);

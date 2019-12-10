@@ -84,7 +84,7 @@ Color pickColor(const size_t i)
 		return BLUE;
 		break;
 	case 6:
-		return PURPLE;
+		return VIOLET;
 		break;
 	case 7:
 		return PINK;

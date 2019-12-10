@@ -12,18 +12,14 @@ Button::Button(Texture2D tex, Vector2 pos, float scale, Color color) : Sprite(te
 	hitbox.width = texture.width * scale;
 }
 
-Button::~Button()
-{ }
+Button::~Button() { }
 
 void Button::Draw()
 {
 	DrawTextureEx(texture, Vector2{ x, y }, 0, spriteScale, spriteColor);
 }
 
-void Button::Update()
-{
-
-}
+void Button::Update() { }
 
 bool Button::CheckForClick()
 {

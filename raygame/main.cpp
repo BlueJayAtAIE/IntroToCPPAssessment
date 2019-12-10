@@ -49,7 +49,6 @@ int main()
 
 	// Player one COLOR (left hand side).
 	PlayerColorSelect playerOneColors[maxColors];
-
 	for (size_t i = 0; i < maxColors; i++)
 	{
 		float y = 340;
@@ -57,9 +56,8 @@ int main()
 		playerOneColors[i] = PlayerColorSelect(texLib.blank, Vector2{ 20 + (50 * (float)(i % 4)), y }, 0.5f, pickColor(i));
 	}
 
-	// Player two COLOR (right hand size).
+	// Player two COLOR (right hand side).
 	PlayerColorSelect playerTwoColors[maxColors];
-
 	for (size_t i = 0; i < maxColors; i++)
 	{
 		float y = 340;
@@ -94,7 +92,6 @@ int main()
 	float scrollOneY = 0;
 	float scrollTwoX = -800;
 	float scrollTwoY = -600;
-
 	//--------------------------------------------------------------------------------------
 
 	// Main game loop
@@ -111,6 +108,7 @@ int main()
 		{
 			// Update
 			//----------------------------------------------------------------------------------
+			// Allows the grid select buttons to be clickable.
 			gridButton3.Update(game.gridSize);
 			gridButton4.Update(game.gridSize);
 			gridButton5.Update(game.gridSize);
@@ -143,12 +141,10 @@ int main()
 			// Update the scrolling BG.
 			scroll(scrollOneX, scrollOneY, -800, -600);
 			scroll(scrollTwoX, scrollTwoY, -800, -600);
-
 			//----------------------------------------------------------------------------------
 
 			// Draw
 			//----------------------------------------------------------------------------------
-			// Display Grid Choices.
 			BeginDrawing();
 
 			ClearBackground(JAYBLUE);
@@ -159,6 +155,8 @@ int main()
 
 			// Draw the Main BG.
 			DrawTextureEx(texLib.mainMenuBG, Vector2{ 0, 0 }, 0, 1, WHITE);
+
+			DrawFPS(3, 0);
 
 			// Let players preview their symbol and color combo.
 			DrawTextureEx(player1.playerShape, Vector2{ 245, 425 }, 0, 0.8f, player1.playerColor);
@@ -224,6 +222,7 @@ int main()
 			{
 				// Update
 				//----------------------------------------------------------------------------------
+				// Depending on whose turn it is, update the buttons accordingly.
 				for (size_t i = 0; i < game.gridSize * game.gridSize; i++)
 				{
 					if (game.playerOnesTurn)
@@ -239,7 +238,6 @@ int main()
 				// Update the scrolling BG.
 				scroll(scrollOneX, scrollOneY, -800, -600);
 				scroll(scrollTwoX, scrollTwoY, -800, -600);
-
 				//----------------------------------------------------------------------------------
 
 				// Draw
@@ -265,6 +263,8 @@ int main()
 				{
 					DrawTextureEx(texLib.level5x5BG, Vector2{ 0, 0 }, 0, 1, WHITE);
 				}
+
+				DrawFPS(3, 0);
 
 				// Let players preview their symbol and color combo. Also displays whose turn it is.
 				if (game.playerOnesTurn)
@@ -338,6 +338,7 @@ int main()
 					break;
 				}
 
+
 				// Diagonal (Lower Left to Upper Right)
 				playerToTrack = gameBoard[game.gridSize - 1][0];
 				count = 0;
@@ -354,9 +355,9 @@ int main()
 					break;
 				}
 
-				playerToTrack = 0;
 
 				// Columns
+				playerToTrack = 0;
 				for (size_t i = 0; i < game.gridSize; i++)
 				{
 					count = 0;
@@ -386,9 +387,9 @@ int main()
 					break;
 				}
 
-				playerToTrack = 0;
 
 				// Rows
+				playerToTrack = 0;
 				for (size_t i = 0; i < game.gridSize; i++)
 				{
 					count = 0;
@@ -443,20 +444,17 @@ int main()
 				break;
 			}
 
-
 			// Setting gameOn to false ends the round, and brings up the quit/continue screen.
 			if (game.playerWin > 0)
 			{
 				game.loopTurns = false;
 				//std::cout << "Player " << game.playerWin << " has won!!" << std::endl;
 			}
-
 			//----------------------------------------------------------------------------------
 		}
 
 		// END GAME
 		//----------------------------------------------------------------------------------
-
 		bool continueGame = false;
 
 		// Disable all the grid cells, even if blank, so they can't be changed on the reults scren.
@@ -469,7 +467,6 @@ int main()
 		{
 			// Update
 			//----------------------------------------------------------------------------------
-			
 			// Give the option to continue or quit.
 			continueButton.Update(continueGame);
 			quitButton.Update(game.gameOn);
@@ -477,7 +474,6 @@ int main()
 			// Update the scrolling BG.
 			scroll(scrollOneX, scrollOneY, -800, -600);
 			scroll(scrollTwoX, scrollTwoY, -800, -600);
-
 			//----------------------------------------------------------------------------------
 
 			// Draw
@@ -536,6 +532,8 @@ int main()
 			// The blur effect over the board.
 			DrawTexture(texLib.fadeScreen, 0, 0, WHITE);
 
+			DrawFPS(3, 0);
+
 			// Display the Retry/Quit buttons.
 			continueButton.Draw();
 			DrawText("Rematch!", 140, 310, 50, BLACK);
@@ -559,12 +557,11 @@ int main()
 				DrawText("Tie Game.", 238, 88, 70, WHITE);
 				DrawText("Tie Game.", 240, 90, 70, BLACK);
 			}
-
-
 			EndDrawing();
 			//----------------------------------------------------------------------------------
 		}
 
+		// IMPORTANT: Delete all dynamic objects here.
 		delete[] cells;
 		for (size_t i = 0; i < game.gridSize; i++)
 		{

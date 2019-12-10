@@ -33,7 +33,6 @@ void TTT::Update(Player player, bool &turnEnd)
 	// On being hovered over and unclicked before, the color will change.
 	if (CheckForHover() && clickable)
 	{
-		// TODO placeholder maybe?
 		spriteColor = YELLOW;
 	}
 	else if (clickable)

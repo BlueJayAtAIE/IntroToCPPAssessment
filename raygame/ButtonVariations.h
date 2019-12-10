@@ -2,6 +2,7 @@
 #include "Button.h"
 #include "Player.h"
 
+// The button used as the cells on the actual Tic Tac Toe board.
 class TTT :
 	public Button
 {
@@ -17,6 +18,7 @@ public:
 	int claimedBy;
 };
 
+// The buttons used to change the size of the board on the main menu.
 class GridSizeSelect : 
 	public Button
 {
@@ -33,6 +35,7 @@ private:
 	int grid;
 };
 
+// Buttons used to change the color of the customizable character.
 class PlayerColorSelect :
 	public Button
 {
@@ -48,6 +51,7 @@ private:
 	Color baseColor;
 };
 
+// Buttons used to change the shape of the customizable character.
 class PlayerShapeSelect :
 	public Button
 {
@@ -64,6 +68,7 @@ private:
 	std::string baseTexName;
 };
 
+// Button that toggles on or off a given bool. Used for Continue and Quit buttons.
 class Toggle :
 	public Button
 {

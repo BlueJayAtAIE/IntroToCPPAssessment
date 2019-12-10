@@ -12,15 +12,11 @@ Sprite::Sprite(Texture2D tex, Vector2 pos, float scale, Color color)
 	spriteColor = color;
 }
 
-Sprite::~Sprite()
-{ }
+Sprite::~Sprite() { }
 
 void Sprite::Draw()
 {
 	DrawTextureEx(texture, Vector2{ x, y }, 0, spriteScale, spriteColor);
 }
 
-void Sprite::Update()
-{
-
-}
+void Sprite::Update() { }
