@@ -6,9 +6,8 @@ bool gameVariableHolder::gameOn;
 bool gameVariableHolder::playerDone;
 bool gameVariableHolder::playerOnesTurn;
 
-// TEXTURE BANK ------------------------
-// TODO Currently doesn't work. It'd be nice if this was done before turn-in but 
-// you might have the use the horribly ineffiecnt way just to save some time.
+// -------------------------------------
+// TEXTURE BANK
 
 textureLibrary::textureLibrary()
 {
@@ -40,4 +39,48 @@ int ** newGrid(size_t size)
 	return arr;
 }
 
+bool operator==(const Color lhs, const Color rhs)
+{
+	if (lhs.r != rhs.r || lhs.g != rhs.g || lhs.b != rhs.b || lhs.a != rhs.a) return false;
+	return true;
+}
 
+bool operator!=(const Color lhs, const Color rhs)
+{
+	if (lhs.r != rhs.r || lhs.g != rhs.g || lhs.b != rhs.b || lhs.a != rhs.a) return true;
+	return false;
+}
+
+Color pickColor(const size_t i)
+{
+	switch (i)
+	{
+	case 0:
+		return RED;
+		break;
+	case 1:
+		return ORANGE;
+		break;
+	case 2:
+		return GOLD;
+		break;
+	case 3:
+		return GREEN;
+		break;
+	case 4:
+		return LIME;
+		break;
+	case 5:
+		return BLUE;
+		break;
+	case 6:
+		return PURPLE;
+		break;
+	case 7:
+		return PINK;
+		break;
+	default:
+		return GRAY;
+		break;
+	}
+}

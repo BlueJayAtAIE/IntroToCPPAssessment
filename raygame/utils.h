@@ -36,3 +36,9 @@ struct gameVariableHolder
 };
 
 int ** newGrid(size_t size);
+
+bool operator==(const Color lhs, const Color rhs);
+bool operator!=(const Color lhs, const Color rhs);
+
+// These are used in setting up the player customization buttons.
+Color pickColor(const size_t i);

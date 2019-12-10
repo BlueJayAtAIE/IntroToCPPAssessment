@@ -6,7 +6,7 @@
 class Player
 {
 public:
-	Player(std::string playerFile, Texture2D shape, Color color, int number);
+	Player(std::string playerFile, Texture2D shape, std::string shapeName, Color color, int number);
 	~Player();
 
 	// Only Name and w/l ratio is recorded by file.
@@ -14,6 +14,7 @@ public:
 	Vector2 winLose;
 
 	Texture2D playerShape;
+	std::string playerShapeName;
 	Color playerColor;
 	int playerNumber;
 };

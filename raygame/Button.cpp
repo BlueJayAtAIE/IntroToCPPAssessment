@@ -8,8 +8,8 @@ Button::Button(Texture2D tex, Vector2 pos, float scale, Color color) : Sprite(te
 { 
 	hitbox.x = x;
 	hitbox.y = y;
-	hitbox.height = texture.height;
-	hitbox.width = texture.width;
+	hitbox.height = texture.height * scale;
+	hitbox.width = texture.width * scale;
 }
 
 Button::~Button()
